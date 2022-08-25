@@ -1,11 +1,14 @@
 from snowflake.snowpark.functions import col
 
+
 def model(dbt, session):
 
     payments_renames = {"id": "payment_id"}
-    payments_renames  = {key.upper(): value.upper() for key, value in payments_renames.items()}
+    payments_renames = {
+        key.upper(): value.upper() for key, value in payments_renames.items()
+    }
 
-    stg_payments = dbt.ref('raw_payments')
+    stg_payments = dbt.ref("raw_payments")
 
     stg_payments = stg_payments.select(
         *[

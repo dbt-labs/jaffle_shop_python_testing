@@ -5,14 +5,13 @@ def model(dbt, session):
         key.upper(): value.upper() for key, value in customers_renames.items()
     }
 
-
-    stg_orders = dbt.ref('stg_orders')
+    stg_orders = dbt.ref("stg_orders")
     stg_orders = stg_orders.to_pandas()
 
-    stg_payments = dbt.ref('stg_payments')
+    stg_payments = dbt.ref("stg_payments")
     stg_payments = stg_payments.to_pandas()
 
-    stg_customers = dbt.ref('stg_customers')
+    stg_customers = dbt.ref("stg_customers")
     stg_customers = stg_customers.to_pandas()
 
     customer_orders = (
@@ -37,6 +36,5 @@ def model(dbt, session):
         .merge(customer_payments, on="customer_id".upper(), how="left")
         .rename(columns=customers_renames)
     )
-
 
     return customers
